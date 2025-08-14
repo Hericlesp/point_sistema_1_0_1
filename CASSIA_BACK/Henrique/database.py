@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-DB_DIR = r"\\educcur03\Users\Public\Técnico Informática Noite\POINT - PROJETO\CASSIA - BACK\Henrique\data"
+DB_DIR = r"\\educcur03\Users\Public\Técnico Informática Noite\point_sistema_1_0_1\CASSIA_BACK\Henrique\data"
 DB_PATH = os.path.join(DB_DIR, 'database.db')
 
 def criar_banco_e_tabelas():
@@ -25,19 +25,21 @@ def criar_banco_e_tabelas():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS login (
             ID_USER INTEGER PRIMARY KEY,
+            NOME TEXT NOT NULL,
             CPF TEXT NOT NULL,
             RA TEXT NOT NULL,
             SENHA TEXT NOT NULL,
             PERMISSAO TEXT NOT NULL CHECK(PERMISSAO IN ('ADMIN', 'ALUNO', 'PROFESSOR', 'ROOT')),
+            FOREIGN KEY (NOME) REFERENCES usuarios(NOME),
             FOREIGN KEY (ID_USER) REFERENCES usuarios(ID_USUARIO)
         )
     """)
     # Inserindo usuários na tabela usuarios
     usuarios = [
-        ('Hericles', '11111111111', 'RA0000', 'ROOT'),
+        ('Hericles', '11111111111', '998096', 'ROOT'),
         ('Maria Oliveira', '22222222222', 'RA0002', 'ALUNO'),
         ('Carlos Souza', '33333333333', 'RA0003', 'PROFESSOR'),
-        ('Ana Santos', '44444444444', 'RA0004', 'ROOT'),
+        ('Henrique', '44444444444', '1006595', 'ROOT'),
         ('Pedro Lima', '55555555555', 'RA0005', 'ADMIN'),
         ('Fernanda Costa', '66666666666', 'RA0006', 'ALUNO'),
         ('Lucas Almeida', '77777777777', 'RA0007', 'PROFESSOR'),
@@ -50,19 +52,19 @@ def criar_banco_e_tabelas():
 
     # Inserindo registros na tabela login
     logins = [
-        (1, '11111111111', 'RA0000', 'senha123', 'ROOT'),
-        (2, '22222222222', 'RA0002', 'senha123', 'ALUNO'),
-        (3, '33333333333', 'RA0003', 'senha123', 'PROFESSOR'),
-        (4, '44444444444', 'RA0004', 'senha123', 'ROOT'),
-        (5, '55555555555', 'RA0005', 'senha123', 'ADMIN'),
-        (6, '66666666666', 'RA0006', 'senha123', 'ALUNO'),
-        (7, '77777777777', 'RA0007', 'senha123', 'PROFESSOR'),
-        (8, '88888888888', 'RA0008', 'senha123', 'ROOT'),
-        (9, '99999999999', 'RA0009', 'senha123', 'ADMIN'),
-        (10, '10101010101', 'RA0010', 'senha123', 'ALUNO')
+        (1, 'Hericles', '11111111111', '998096', '998096', 'ROOT'),
+        (2,'Maria Oliveira', '22222222222', 'RA0002', 'senha123', 'ALUNO'),
+        (3, 'Carlos Souza','33333333333', 'RA0003', 'senha123', 'PROFESSOR'),
+        (4, 'Henrique','44444444444', '1006595', '1006595', 'ROOT'),
+        (5, 'Pedro Lima','55555555555', 'RA0005', 'senha123', 'ADMIN'),
+        (6, 'Fernanda Costa','66666666666', 'RA0006', 'senha123', 'ALUNO'),
+        (7, 'Lucas Almeida','77777777777', 'RA0007', 'senha123', 'PROFESSOR'),
+        (8, 'Juliana Pereira','88888888888', 'RA0008', 'senha123', 'ROOT'),
+        (9, 'Rafael Mendes', '99999999999', 'RA0009', 'senha123', 'ADMIN'),
+        (10, 'Camila Rocha','10101010101', 'RA0010', 'senha123', 'ALUNO')
     ]
     for login in logins:
-        cursor.execute("INSERT INTO login (ID_USER, CPF, RA, SENHA, PERMISSAO) VALUES (?, ?, ?, ?, ?)", login)
+        cursor.execute("INSERT INTO login (ID_USER, NOME, CPF, RA, SENHA, PERMISSAO) VALUES (?, ?, ?, ?, ?, ?)", login)
 
     conn.commit()
     conn.close()
