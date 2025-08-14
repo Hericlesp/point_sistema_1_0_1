@@ -21,51 +21,52 @@ class Valida_logi:
         
         
         
-    #-----------------------
-    def fazer_login(self):
-        matricula = self.usuario_var.get().strip()
-        senha = self.senha_var.get().strip()
+    # #-----------------------
+    # def fazer_login(self):
+    #     matricula = self.usuario_var.get().strip()
+    #     senha = self.senha_var.get().strip()
 
-        if not matricula or not senha:
-            messagebox.showwarning("Atenção", "Preencha todos os campos.")
-            return
+    #     if not matricula or not senha:
+    #         messagebox.showwarning("Atenção", "Preencha todos os campos.")
+    #         return
         
-        try:
-            matricula_int = int(matricula)  # Convertendo para inteiro
+    #     try:
+    #         matricula_int = int(matricula)  # Convertendo para inteiro
             
-        except ValueError:
-            messagebox.showerror("Erro", "Matrícula deve ser numérica.")
-            return
+    #     except ValueError:
+    #         messagebox.showerror("Erro", "Matrícula deve ser numérica.")
+    #         return
 
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
+    #     conn = sqlite3.connect(DB_PATH)
+    #     cursor = conn.cursor()
 
-        cursor.execute(
-            "SELECT cargo FROM Usuarios WHERE matricula = ? AND senha = ?",
-            (matricula_int, senha)
-        )
-        resultado = cursor.fetchone()
-        conn.close()
+    #     cursor.execute(
+    #         "SELECT cargo FROM Usuarios WHERE matricula = ? AND senha = ?",
+    #         (matricula_int, senha)
+    #     )
+    #     resultado = cursor.fetchone()
+    #     conn.close()
 
     
-        if resultado:
-            cargo = resultado[0]
-            messagebox.showinfo("Login", f"Bem-vindo, {cargo.upper()}!")
+    #     if resultado:
+    #         cargo = resultado[0]
+    #         messagebox.showinfo("Login", f"Bem-vindo, {cargo.upper()}!")
 
-            self.root.destroy()  # Fecha a janela de login
+    #         self.root.destroy()  # Fecha a janela de login
 
                
-            if cargo in ["ROOT", "ADM"]:
-                novo_root = tk.Tk()
-                main.SistemaPonto(novo_root).run()
+    #         if cargo in ["ROOT", "ADM"]:
+    #             novo_root = tk.Tk()
+    #             main.SistemaPonto(novo_root).run()
 
                 
-            elif cargo == "USER":
-                novo_root = tk.Tk()
-                USER_ponto_user_main.SistemaPonto(novo_root, matricula_int).run()
+    #         elif cargo == "USER":
+    #             novo_root = tk.Tk()
+    #             USER_ponto_user_main.SistemaPonto(novo_root, matricula_int).run()
 
-            else:
-                messagebox.showerror("Erro", "Permissão desconhecida!")
+    #         else:
+    #             messagebox.showerror("Erro", "Permissão desconhecida!")
 
-        else:
-            messagebox.showerror("Erro", "Matrícula ou senha incorretos.")
+    #     else:
+    #         messagebox.showerror("Erro", "Matrícula ou senha incorretos.")
+    
