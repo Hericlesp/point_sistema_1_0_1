@@ -16,6 +16,7 @@ class Point:
         self.style.theme_use("clam")
 
         self.criar_widgets()
+        self.run()
 
     def criar_widgets(self):
         
@@ -66,15 +67,18 @@ class Point:
         self.entrada_frequencia3= tk.Button(frame_principal, text="Marcar Frequência", width=20)
         self.entrada_frequencia3.grid(row=7, column=1, padx=80, pady=5)
 
+    def run(self):
+        self.janela.mainloop()
         
 
        
 
 
+if __name__ == "__main__":
 
-janela= tk.Tk()
-app = Point(janela)
-janela.mainloop()
+    janela= tk.Tk()
+    app = Point(janela)
+    janela.mainloop()
 
 
     
